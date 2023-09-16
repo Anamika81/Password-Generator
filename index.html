@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Generator</title>
+</head>
+<body>
+    <style>
+        body{
+            text-align: center;
+            align-items: center;
+            margin-left: 450px;
+        
+            margin-top: 100px;
+            /* background-color: rgb(139, 0, 139); */
+            background-color: rgb(205, 162, 216);
+            box-sizing: border-box;
+            font-size:larger;
+            
+        }
+        .box {
+            width: 600px; 
+            height: 380px; 
+            /* background-color:rgb(205, 162, 216); */
+            background-color: rgb(139, 0, 139);
+            border: 2px solid #2980b9; 
+            border-radius: 20px;
+            box-shadow: 70%; 
+            margin: 20px; 
+            padding: 10px; 
+            color: #fff; 
+            text-align: center;
+
+        }
+        .password{
+            height: 200px;
+            width: 200px;
+        }
+        .btn{
+            background-color: rgb(40, 82, 209);
+            /* width: 50px;
+            height: 500px; */
+        }
+        .txt{
+            border-radius: 10px;
+            font-size: x-large;
+        }
+       
+    </style>
+    <div class="box">
+    <h1>PASSWORD GENERATOR</h1>
+    <label for="length">Password Length:</label>
+    <input type="number" id="length" min="4" max="8" value="12">
+    <br>
+    <!-- <label for="passwordLength">Password Length (up to 8 characters):</label>
+    <input type="number" id="passwordLength" min="1" max="8" value="8">
+    <br><br><br> -->
+    <label for="uppercase">Uppercase Letters : </label>
+    <input type="checkbox" id="uppercase" checked>
+    <br>
+    <label for="lowercase">Lowercase Letters : </label>
+    <input type="checkbox" id="lowercase" checked>
+    <br>
+    <label for="numbers">Numbers : </label>
+    <input type="checkbox" id="numbers" checked>
+    <br>
+    <label for="special">Special Characters : </label>
+    <input type="checkbox" id="special">
+    <br><br>
+    
+    <button class="btn" onclick="generatePassword()">Generate Password</button>
+    <br>
+    
+    <h2>Your Password:</h2>
+    <textarea class="txt" id="password" rows="2" cols="40" readonly></textarea><br><br><br>
+    </body>
+    </div>
+
+
+    <script>
+        function generatePassword() {
+            const length = parseInt(document.getElementById('length').value);
+            const uppercase = document.getElementById('uppercase').checked;
+            const lowercase = document.getElementById('lowercase').checked;
+            const numbers = document.getElementById('numbers').checked;
+            const special = document.getElementById('special').checked;
+
+            const charset = [];
+            if (uppercase) charset.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+            if (lowercase) charset.push('abcdefghijklmnopqrstuvwxyz');
+            if (numbers) charset.push('0123456789');
+            if (special) charset.push('!@#$%^&*()_+[]{}|;:,.<>?');
+
+            if (charset.length === 0) {
+                alert('Please select at least one character type.');
+                return;
+            }
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomSetIndex = Math.floor(Math.random() * charset.length);
+                const selectedSet = charset[randomSetIndex];
+                const randomCharIndex = Math.floor(Math.random() * selectedSet.length);
+                const randomChar = selectedSet.charAt(randomCharIndex);
+                password += randomChar;
+            }
+
+            document.getElementById('password').value = password;
+        }
+    
+    </script>
+</body>
+</html>
